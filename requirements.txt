@@ -1,0 +1,23 @@
+# TalentLens — AI Resume Ranking & Candidate Matching
+#
+# NOTE ON TORCH: torch is intentionally NOT pinned here. This machine already has
+# torch 2.11.0+cu126 (CUDA) installed. sentence-transformers only requires
+# torch>=1.11.0, which the existing build satisfies, so pip will leave it alone.
+# If you install into a fresh environment and want GPU support, install torch
+# from https://pytorch.org first, then install this file.
+
+sentence-transformers>=3.0
+spacy>=3.8
+PyMuPDF>=1.24
+rank-bm25>=0.2.2
+python-docx>=1.1
+pyyaml>=6.0
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.4
+streamlit>=1.30
+pytest>=8.0
+
+# Optional — only needed for the LLM explanation backends.
+# The system falls back to deterministic templates when these are absent.
+# anthropic>=0.40

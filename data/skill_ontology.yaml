@@ -1,0 +1,224 @@
+# TalentLens skill ontology
+#
+# Two jobs:
+#   1. ALIASES collapse surface forms onto one canonical name, which is our
+#      lexical answer to the vocabulary-mismatch gap ("js" and "ECMAScript"
+#      must not read as different skills from "javascript").
+#   2. PARENTS encode implication: holding a child implies the parent. Someone
+#      who ships Django demonstrably writes Python, so a JD asking for Python
+#      should not mark them as missing it. Expansion walks parents transitively.
+#
+# Parent edges must stay a DAG - the loader raises on cycles.
+# Keep canonical names lowercase, hyphenated, and singular.
+
+skills:
+
+  # ---------------------------------------------------------------- languages
+  python:      {category: language, aliases: [py, python3]}
+  javascript:  {category: language, aliases: [js, ecmascript, es6]}
+  typescript:  {category: language, aliases: [ts], parents: [javascript]}
+  java:        {category: language}
+  c:           {category: language, aliases: [c language]}
+  cpp:         {category: language, aliases: ["c++", cplusplus]}
+  csharp:      {category: language, aliases: ["c#", c sharp]}
+  go:          {category: language, aliases: [golang]}
+  rust:        {category: language}
+  ruby:        {category: language}
+  php:         {category: language}
+  scala:       {category: language}
+  r:           {category: language, aliases: [r language]}
+  kotlin:      {category: language}
+  swift:       {category: language}
+  matlab:      {category: language}
+  bash:        {category: language, aliases: [shell, shell scripting, sh]}
+  sql:         {category: language, aliases: [structured query language]}
+
+  # ----------------------------------------------------------------- frontend
+  html:        {category: frontend, aliases: [html5]}
+  css:         {category: frontend, aliases: [css3]}
+  sass:        {category: frontend, aliases: [scss], parents: [css]}
+  tailwind:    {category: frontend, aliases: [tailwindcss, tailwind css], parents: [css]}
+  bootstrap:   {category: frontend, parents: [css]}
+  react:       {category: frontend, aliases: [reactjs, react.js], parents: [javascript]}
+  nextjs:      {category: frontend, aliases: [next.js, next js], parents: [react]}
+  redux:       {category: frontend, parents: [react]}
+  angular:     {category: frontend, aliases: [angularjs], parents: [typescript]}
+  vue:         {category: frontend, aliases: [vuejs, vue.js], parents: [javascript]}
+  svelte:      {category: frontend, parents: [javascript]}
+  jquery:      {category: frontend, parents: [javascript]}
+  webpack:     {category: frontend, parents: [javascript]}
+  responsive-design: {category: frontend, aliases: [responsive web design], parents: [css]}
+
+  # ------------------------------------------------------------------ backend
+  nodejs:      {category: backend, aliases: [node, node.js], parents: [javascript]}
+  express:     {category: backend, aliases: [expressjs, express.js], parents: [nodejs]}
+  django:      {category: backend, aliases: [django rest framework, drf], parents: [python]}
+  flask:       {category: backend, parents: [python]}
+  fastapi:     {category: backend, aliases: [fast api], parents: [python]}
+  spring:      {category: backend, parents: [java]}
+  spring-boot: {category: backend, aliases: [springboot], parents: [spring]}
+  rails:       {category: backend, aliases: [ruby on rails], parents: [ruby]}
+  laravel:     {category: backend, parents: [php]}
+  dotnet:      {category: backend, aliases: [".net", "asp.net", dot net], parents: [csharp]}
+  rest-api:    {category: backend, aliases: [rest, restful, restful api, api development]}
+  graphql:     {category: backend}
+  grpc:        {category: backend}
+  microservices: {category: backend, aliases: [microservice architecture]}
+  serverless:  {category: backend}
+
+  # ---------------------------------------------------------------- databases
+  nosql:       {category: database}
+  postgresql:  {category: database, aliases: [postgres, psql], parents: [sql]}
+  mysql:       {category: database, parents: [sql]}
+  sqlite:      {category: database, parents: [sql]}
+  oracle:      {category: database, aliases: [oracle db], parents: [sql]}
+  mssql:       {category: database, aliases: [sql server, microsoft sql server], parents: [sql]}
+  pgvector:    {category: database, parents: [postgresql]}
+  mongodb:     {category: database, aliases: [mongo], parents: [nosql]}
+  cassandra:   {category: database, parents: [nosql]}
+  dynamodb:    {category: database, parents: [nosql]}
+  redis:       {category: database, parents: [nosql]}
+  elasticsearch: {category: database, aliases: [elastic search, opensearch]}
+  neo4j:       {category: database, aliases: [graph database]}
+
+  # ------------------------------------------------------------- ml / ai core
+  machine-learning: {category: ml, aliases: [ml, statistical learning]}
+  deep-learning:    {category: ml, aliases: [dl, neural networks], parents: [machine-learning]}
+  nlp:              {category: ml, aliases: [natural language processing, text mining], parents: [machine-learning]}
+  computer-vision:  {category: ml, aliases: [cv, image processing], parents: [machine-learning]}
+  reinforcement-learning: {category: ml, aliases: [rl], parents: [machine-learning]}
+  recommender-systems: {category: ml, aliases: [recommendation systems, recsys], parents: [machine-learning]}
+  time-series:      {category: ml, aliases: [time series forecasting], parents: [machine-learning]}
+  feature-engineering: {category: ml, parents: [machine-learning]}
+  model-deployment: {category: ml, aliases: [model serving], parents: [machine-learning]}
+  mlops:            {category: ml, parents: [machine-learning]}
+
+  # ------------------------------------------------------- ml / ai frameworks
+  pytorch:      {category: ml, aliases: [torch], parents: [deep-learning, python]}
+  tensorflow:   {category: ml, aliases: [tf], parents: [deep-learning, python]}
+  keras:        {category: ml, parents: [tensorflow]}
+  scikit-learn: {category: ml, aliases: [sklearn, scikit learn], parents: [machine-learning, python]}
+  xgboost:      {category: ml, parents: [machine-learning]}
+  lightgbm:     {category: ml, parents: [machine-learning]}
+  transformers: {category: ml, aliases: [transformer models, bert], parents: [deep-learning, nlp]}
+  huggingface:  {category: ml, aliases: [hugging face], parents: [transformers]}
+  llm:          {category: ml, aliases: [large language models, large language model], parents: [nlp]}
+  rag:          {category: ml, aliases: [retrieval augmented generation], parents: [llm]}
+  sentence-transformers: {category: ml, aliases: [sbert], parents: [transformers]}
+  spacy:        {category: ml, parents: [nlp, python]}
+  nltk:         {category: ml, parents: [nlp, python]}
+  opencv:       {category: ml, parents: [computer-vision]}
+
+  # ---------------------------------------------------------- data / analytics
+  pandas:      {category: data, parents: [python]}
+  numpy:       {category: data, parents: [python]}
+  scipy:       {category: data, parents: [python]}
+  matplotlib:  {category: data, parents: [python]}
+  seaborn:     {category: data, parents: [matplotlib]}
+  plotly:      {category: data, parents: [python]}
+  statistics:  {category: data, aliases: [statistical analysis, applied statistics]}
+  ab-testing:  {category: data, aliases: ["a/b testing", experimentation], parents: [statistics]}
+  data-visualization: {category: data, aliases: [data viz, dataviz]}
+  tableau:     {category: data, parents: [data-visualization]}
+  powerbi:     {category: data, aliases: [power bi], parents: [data-visualization]}
+  excel:       {category: data, aliases: [microsoft excel, advanced excel]}
+
+  # --------------------------------------------------------- data engineering
+  big-data:    {category: data-eng}
+  spark:       {category: data-eng, aliases: [apache spark, pyspark], parents: [big-data]}
+  hadoop:      {category: data-eng, aliases: [apache hadoop], parents: [big-data]}
+  hive:        {category: data-eng, parents: [big-data]}
+  flink:       {category: data-eng, aliases: [apache flink], parents: [big-data]}
+  kafka:       {category: data-eng, aliases: [apache kafka]}
+  airflow:     {category: data-eng, aliases: [apache airflow]}
+  dbt:         {category: data-eng}
+  etl:         {category: data-eng, aliases: [etl pipelines, data pipelines]}
+  data-warehousing: {category: data-eng, aliases: [data warehouse]}
+  snowflake:   {category: data-eng, parents: [data-warehousing]}
+  databricks:  {category: data-eng, parents: [big-data]}
+
+  # ----------------------------------------------------------- cloud / devops
+  cloud-computing: {category: cloud, aliases: [cloud]}
+  aws:         {category: cloud, aliases: [amazon web services], parents: [cloud-computing]}
+  azure:       {category: cloud, aliases: [microsoft azure], parents: [cloud-computing]}
+  gcp:         {category: cloud, aliases: [google cloud, google cloud platform], parents: [cloud-computing]}
+  s3:          {category: cloud, parents: [aws]}
+  ec2:         {category: cloud, parents: [aws]}
+  lambda:      {category: cloud, aliases: [aws lambda], parents: [aws, serverless]}
+  containers:  {category: devops, aliases: [containerization]}
+  docker:      {category: devops, parents: [containers]}
+  kubernetes:  {category: devops, aliases: [k8s], parents: [containers]}
+  helm:        {category: devops, parents: [kubernetes]}
+  iac:         {category: devops, aliases: [infrastructure as code]}
+  terraform:   {category: devops, parents: [iac]}
+  ansible:     {category: devops, parents: [iac]}
+  ci-cd:       {category: devops, aliases: ["ci/cd", continuous integration, continuous deployment]}
+  jenkins:     {category: devops, parents: [ci-cd]}
+  github-actions: {category: devops, aliases: [gh actions], parents: [ci-cd]}
+  gitlab-ci:   {category: devops, parents: [ci-cd]}
+  linux:       {category: devops, aliases: [unix, ubuntu]}
+  nginx:       {category: devops}
+  monitoring:  {category: devops, aliases: [observability]}
+  prometheus:  {category: devops, parents: [monitoring]}
+  grafana:     {category: devops, parents: [monitoring]}
+
+  # --------------------------------------------------------------- networking
+  networking:  {category: network, aliases: [computer networking]}
+  tcp-ip:      {category: network, aliases: ["tcp/ip"], parents: [networking]}
+  dns:         {category: network, parents: [networking]}
+  dhcp:        {category: network, parents: [networking]}
+  routing:     {category: network, aliases: [routing and switching], parents: [networking]}
+  switching:   {category: network, parents: [networking]}
+  bgp:         {category: network, parents: [routing]}
+  ospf:        {category: network, parents: [routing]}
+  vlan:        {category: network, parents: [switching]}
+  subnetting:  {category: network, parents: [tcp-ip]}
+  vpn:         {category: network, parents: [networking]}
+  load-balancing: {category: network, parents: [networking]}
+  sdn:         {category: network, aliases: [software defined networking], parents: [networking]}
+  cisco:       {category: network, parents: [networking]}
+  ccna:        {category: network, parents: [cisco]}
+  wireshark:   {category: network, parents: [networking]}
+
+  # ----------------------------------------------------------------- security
+  cybersecurity: {category: security, aliases: [information security, infosec]}
+  network-security: {category: security, parents: [networking, cybersecurity]}
+  firewall:    {category: security, aliases: [firewalls], parents: [network-security]}
+  penetration-testing: {category: security, aliases: [pen testing, pentesting], parents: [cybersecurity]}
+  cryptography: {category: security, aliases: [encryption], parents: [cybersecurity]}
+  oauth:       {category: security, aliases: [oauth2, authentication], parents: [cybersecurity]}
+  owasp:       {category: security, parents: [cybersecurity]}
+  siem:        {category: security, parents: [cybersecurity]}
+
+  # ------------------------------------------------------------------ testing
+  unit-testing: {category: testing, aliases: [unit tests]}
+  integration-testing: {category: testing}
+  tdd:         {category: testing, aliases: [test driven development], parents: [unit-testing]}
+  pytest:      {category: testing, parents: [unit-testing, python]}
+  junit:       {category: testing, parents: [unit-testing, java]}
+  jest:        {category: testing, parents: [unit-testing, javascript]}
+  selenium:    {category: testing, parents: [integration-testing]}
+  cypress:     {category: testing, parents: [integration-testing]}
+
+  # -------------------------------------------------------- practices / tools
+  git:         {category: tooling, aliases: [version control]}
+  github:      {category: tooling, parents: [git]}
+  gitlab:      {category: tooling, parents: [git]}
+  jira:        {category: tooling}
+  agile:       {category: practice, aliases: [agile methodology]}
+  scrum:       {category: practice, parents: [agile]}
+  oop:         {category: practice, aliases: [object oriented programming, object-oriented design]}
+  data-structures: {category: practice, aliases: [data structures and algorithms, dsa]}
+  algorithms:  {category: practice, parents: [data-structures]}
+  system-design: {category: practice, aliases: [software architecture]}
+  design-patterns: {category: practice, parents: [oop]}
+  api-design:  {category: practice, parents: [rest-api]}
+  code-review: {category: practice}
+
+  # --------------------------------------------------------------- soft skills
+  communication: {category: soft, aliases: [communication skills]}
+  teamwork:    {category: soft, aliases: [collaboration, team player]}
+  leadership:  {category: soft, aliases: [team leadership]}
+  mentoring:   {category: soft, aliases: [coaching]}
+  problem-solving: {category: soft, aliases: [analytical thinking]}
+  stakeholder-management: {category: soft, parents: [communication]}

@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Embedding cache - regenerable, and large
+.cache/
+*.npy
+
+# Generated corpus: hundreds of PDFs, rebuilt by benchmark/generate_corpus.py
+benchmark/corpus/
+
+# benchmark/results/ IS committed - those CSV/MD files are the paper's artifacts
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Real resume corpus - real people's documents. Never commit or redistribute.
+data/real/
+data/resumes/
+
+# Source PDFs are excluded by default: the literature study is marked
+# "Confidential" and the slide deck carries personal details. Remove these two
+# lines if you decide to publish them.
+AI_Resume_Ranking_Research_Study.pdf
+TalentLens_PBL_MidCA-17.pdf
+
+.DS_Store
